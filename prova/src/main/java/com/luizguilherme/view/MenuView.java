@@ -19,30 +19,42 @@ public class MenuView extends JFrame {
         JMenuItem itemProduto = new JMenuItem("Produtos");
         JMenuItem itemCliente = new JMenuItem("Clientes");
         JMenuItem itemFornecedor = new JMenuItem("Fornecedores");
+        JMenuItem itemFormaPgto = new JMenuItem("Formas de Pagamento");
+        JMenuItem itemTipoConta = new JMenuItem("Tipos de Conta");
         
-        // Ações de clique para abrir as telas
         itemCategoria.addActionListener(e -> new CategoriaView().setVisible(true));
         itemProduto.addActionListener(e -> new ProdutoView().setVisible(true));
         itemCliente.addActionListener(e -> new ClienteView().setVisible(true));
         itemFornecedor.addActionListener(e -> new FornecedorView().setVisible(true));
+        itemFormaPgto.addActionListener(e -> new FormaPagamentoView().setVisible(true));
+        itemTipoConta.addActionListener(e -> new TipoContaView().setVisible(true));
 
         menuCadastros.add(itemCategoria);
         menuCadastros.add(itemProduto);
         menuCadastros.addSeparator();
         menuCadastros.add(itemCliente);
         menuCadastros.add(itemFornecedor);
+        menuCadastros.addSeparator();
+        menuCadastros.add(itemFormaPgto);
+        menuCadastros.add(itemTipoConta);
 
         // --------------- MENU DE MOVIMENTAÇÕES ---------------
         JMenu menuMovimentacoes = new JMenu("Movimentações");
         JMenuItem itemVenda = new JMenuItem("Registrar Venda");
         JMenuItem itemCompra = new JMenuItem("Registrar Compra");
         
+        itemVenda.addActionListener(e -> new VendaView().setVisible(true));
+        itemCompra.addActionListener(e -> new CompraView().setVisible(true));
+
         menuMovimentacoes.add(itemVenda);
         menuMovimentacoes.add(itemCompra);
 
         // ----------------- MENU FINANCEIRO ------------------
         JMenu menuFinanceiro = new JMenu("Financeiro");
         JMenuItem itemContas = new JMenuItem("Baixa de Contas a Pagar/Receber");
+        
+        // AÇÃO DO FINANCEIRO LIGADA
+        itemContas.addActionListener(e -> new FinanceiroView().setVisible(true));
         
         menuFinanceiro.add(itemContas);
 
