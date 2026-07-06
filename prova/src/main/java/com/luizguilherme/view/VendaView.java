@@ -13,6 +13,7 @@ public class VendaView extends JFrame {
 
     private JComboBox<Cliente> cbCliente;
     private JComboBox<Produto> cbProduto;
+    private JTextField txtPrecoVenda; // <-- NOVO CAMPO DE PREÇO AQUI
     private JComboBox<FormaPagamento> cbFormaPagamento;
     private JComboBox<TipoConta> cbTipoConta;
     
@@ -23,7 +24,6 @@ public class VendaView extends JFrame {
     private JList<String> lstCarrinho;
     private JLabel lblTotal;
 
-    // Lista em memória para guardar os produtos adicionados antes de salvar
     private List<Produto> carrinho;
     private double valorTotal = 0.0;
 
@@ -34,13 +34,14 @@ public class VendaView extends JFrame {
         carrinho = new ArrayList<>();
 
         setTitle("SisCom - Registrar Venda");
-        setSize(700, 500);
+        setSize(700, 550); // Aumentei um pouquinho a tela
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
         // ----- PAINEL SUPERIOR (Formulário de Seleção) -----
-        JPanel panelNorte = new JPanel(new GridLayout(5, 2, 5, 5));
+        // Aumentei de 5 para 6 linhas para caber o novo campo
+        JPanel panelNorte = new JPanel(new GridLayout(6, 2, 5, 5));
         panelNorte.setBorder(BorderFactory.createTitledBorder("Dados da Venda"));
 
         panelNorte.add(new JLabel(" Cliente:"));
@@ -52,6 +53,11 @@ public class VendaView extends JFrame {
         cbProduto = new JComboBox<>();
         carregarProdutos();
         panelNorte.add(cbProduto);
+
+        // --- ADICIONANDO O CAMPO DE PREÇO NA TELA ---
+        panelNorte.add(new JLabel(" Preço de Venda (R$):"));
+        txtPrecoVenda = new JTextField("0.00");
+        panelNorte.add(txtPrecoVenda);
 
         panelNorte.add(new JLabel(" Forma de Pagamento:"));
         cbFormaPagamento = new JComboBox<>();
@@ -92,6 +98,15 @@ public class VendaView extends JFrame {
         // ----- AÇÕES DOS BOTÕES -----
         btnAdicionarProduto.addActionListener(e -> adicionarAoCarrinho());
         btnFinalizarVenda.addActionListener(e -> finalizarVenda());
+        
+        // Ação para facilitar: se o usuário selecionar um produto, puxar o preço médio dele para a caixinha
+        cbProduto.addActionListener(e -> {
+            Produto p = (Produto) cbProduto.getSelectedItem();
+            if (p != null) {
+                // Sugere o preço médio, mas deixa o usuário apagar e digitar outro
+                txtPrecoVenda.setText(String.format("%.2f", p.getPreco_medio()).replace(",", "."));
+            }
+        });
     }
 
     // --- MÉTODOS PARA CARREGAR DADOS DO BANCO NOS COMBOBOXES ---
@@ -101,7 +116,6 @@ public class VendaView extends JFrame {
         for (Cliente c : clientes) {
             cbCliente.addItem(c);
         }
-        // Renderizador customizado para mostrar apenas o nome do Cliente na tela
         cbCliente.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -167,15 +181,24 @@ public class VendaView extends JFrame {
             return;
         }
 
-        // Simulação de preço: Como não temos um campo de preço de venda no model básico,
-        // vamos usar o preco_medio ou um valor fixo para demonstração.
-        double precoProduto = produtoSelecionado.getPreco_medio() > 0 ? produtoSelecionado.getPreco_medio() : 50.0;
+        try {
+            // Lemos o preço que o usuário digitou na caixinha nova
+            double precoProduto = Double.parseDouble(txtPrecoVenda.getText().replace(",", "."));
+            
+            if (precoProduto <= 0) {
+                JOptionPane.showMessageDialog(this, "O preço deve ser maior que zero.");
+                return;
+            }
 
-        carrinho.add(produtoSelecionado);
-        valorTotal += precoProduto;
+            carrinho.add(produtoSelecionado);
+            valorTotal += precoProduto;
 
-        listModelCarrinho.addElement(produtoSelecionado.getNome() + " - R$ " + String.format("%.2f", precoProduto));
-        lblTotal.setText("Total: R$ " + String.format("%.2f", valorTotal) + "   ");
+            listModelCarrinho.addElement(produtoSelecionado.getNome() + " - R$ " + String.format("%.2f", precoProduto));
+            lblTotal.setText("Total: R$ " + String.format("%.2f", valorTotal) + "   ");
+            
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Digite um preço válido (ex: 150.50).", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void finalizarVenda() {
@@ -193,21 +216,19 @@ public class VendaView extends JFrame {
             return;
         }
 
-        // Montando o objeto Venda
         Venda novaVenda = new Venda();
         novaVenda.setCliente(cliente);
         novaVenda.setData_venda(new Date());
         novaVenda.setValor_total(valorTotal);
-        novaVenda.setProdutos(new ArrayList<>(carrinho)); // Passa os produtos do carrinho
+        novaVenda.setProdutos(new ArrayList<>(carrinho)); 
 
-        // Chama o Controller que criamos lá atrás (ele vai baixar estoque, validar CPF e gerar as parcelas)
         boolean sucesso = vendaController.registrarVenda(novaVenda, formaPgto, tipoConta);
 
         if (sucesso) {
             JOptionPane.showMessageDialog(this, "Venda registrada com sucesso!\nEstoque baixado e parcelas geradas.");
-            this.dispose(); // Fecha a tela de venda após o sucesso
+            this.dispose(); 
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao registrar venda. Verifique o limite do cliente e o estoque.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao registrar venda. Verifique o limite de vendas do cliente e o estoque.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

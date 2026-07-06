@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
-              name="RelatorioVendas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e6a5dbbe-1234-4567-8901-abcdef123456">
+              name="RelatorioVendas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d14214f4-b258-406c-9418-4a6132cc40f5">
     
     <queryString>
         <![CDATA[SELECT v.id, v.data_venda, v.valor_total, c.nome as cliente_nome FROM venda v INNER JOIN cliente c ON v.cliente_id = c.id]]>
@@ -16,7 +16,7 @@
     <title>
         <band height="50">
             <staticText>
-                <reportElement x="0" y="0" width="555" height="30" uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890"/>
+                <reportElement x="0" y="0" width="555" height="30" uuid="3b4b8c9d-d872-4d2b-ab09-7f5581335b1c"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="18" isBold="true"/>
                 </textElement>
@@ -28,22 +28,22 @@
     <columnHeader>
         <band height="20">
             <staticText>
-                <reportElement x="0" y="0" width="50" height="20" uuid="11111111-2222-3333-4444-555555555555"/>
+                <reportElement x="0" y="0" width="50" height="20" uuid="93427ec5-2b04-44cd-9f70-d8fc0b87ea47"/>
                 <textElement><font isBold="true"/></textElement>
                 <text><![CDATA[ID Venda]]></text>
             </staticText>
             <staticText>
-                <reportElement x="50" y="0" width="200" height="20" uuid="66666666-7777-8888-9999-000000000000"/>
+                <reportElement x="50" y="0" width="200" height="20" uuid="6b88da15-5441-45cd-a5eb-b34e40e3df8f"/>
                 <textElement><font isBold="true"/></textElement>
                 <text><![CDATA[Cliente]]></text>
             </staticText>
             <staticText>
-                <reportElement x="250" y="0" width="150" height="20" uuid="aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"/>
+                <reportElement x="250" y="0" width="150" height="20" uuid="8d89e5fc-a309-41fc-a720-d1ec34a02be0"/>
                 <textElement><font isBold="true"/></textElement>
                 <text><![CDATA[Data da Venda]]></text>
             </staticText>
             <staticText>
-                <reportElement x="400" y="0" width="100" height="20" uuid="ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj"/>
+                <reportElement x="400" y="0" width="100" height="20" uuid="f19f2a24-9b25-455b-b9d9-7edcf1f40669"/>
                 <textElement><font isBold="true"/></textElement>
                 <text><![CDATA[Total (R$)]]></text>
             </staticText>
@@ -53,19 +53,19 @@
     <detail>
         <band height="20">
             <textField>
-                <reportElement x="0" y="0" width="50" height="20" uuid="22222222-3333-4444-5555-666666666666"/>
+                <reportElement x="0" y="0" width="50" height="20" uuid="e2d19293-8b77-4b7f-b51c-8b85770020a6"/>
                 <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="50" y="0" width="200" height="20" uuid="77777777-8888-9999-0000-111111111111"/>
+                <reportElement x="50" y="0" width="200" height="20" uuid="1eb66e6b-a25e-42c2-8008-01d7e2dc1de8"/>
                 <textFieldExpression><![CDATA[$F{cliente_nome}]]></textFieldExpression>
             </textField>
             <textField pattern="dd/MM/yyyy HH:mm">
-                <reportElement x="250" y="0" width="150" height="20" uuid="bbbbbbbb-cccc-dddd-eeee-ffffffffffff"/>
+                <reportElement x="250" y="0" width="150" height="20" uuid="2c00c7e2-4f16-41f2-9bc5-c8e87d0e4c62"/>
                 <textFieldExpression><![CDATA[$F{data_venda}]]></textFieldExpression>
             </textField>
             <textField pattern="#,##0.00">
-                <reportElement x="400" y="0" width="100" height="20" uuid="cccccccc-dddd-eeee-ffff-000000000000"/>
+                <reportElement x="400" y="0" width="100" height="20" uuid="4e91ef4b-0164-4e2a-a92c-633004bb646f"/>
                 <textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
             </textField>
         </band>

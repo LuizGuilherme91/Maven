@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioCompras" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12345678-1234-1234-1234-123456789012">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="RelatorioCompras" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a21b3e10-90fb-40de-b4be-419b4cfb1b11">
     <queryString><![CDATA[SELECT c.id, c.data_compra, c.valor_total, f.nome_fantasia as fornecedor_nome FROM compra c INNER JOIN fornecedor f ON c.fornecedor_id = f.id]]></queryString>
     <field name="id" class="java.lang.Integer"/>
     <field name="data_compra" class="java.sql.Timestamp"/>
@@ -8,7 +11,7 @@
     <title>
         <band height="50">
             <staticText>
-                <reportElement x="0" y="0" width="555" height="30" uuid="87654321-4321-4321-4321-210987654321"/>
+                <reportElement x="0" y="0" width="555" height="30" uuid="bd5a907a-2453-4886-9aeb-a9e9e1c27a9a"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle"><font size="18" isBold="true"/></textElement>
                 <text><![CDATA[Relatório de Compras - SisCom]]></text>
             </staticText>
@@ -16,18 +19,18 @@
     </title>
     <columnHeader>
         <band height="20">
-            <staticText><reportElement x="0" y="0" width="50" height="20" uuid="a1"/><textElement><font isBold="true"/></textElement><text><![CDATA[ID]]></text></staticText>
-            <staticText><reportElement x="50" y="0" width="200" height="20" uuid="a2"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fornecedor]]></text></staticText>
-            <staticText><reportElement x="250" y="0" width="150" height="20" uuid="a3"/><textElement><font isBold="true"/></textElement><text><![CDATA[Data da Compra]]></text></staticText>
-            <staticText><reportElement x="400" y="0" width="100" height="20" uuid="a4"/><textElement><font isBold="true"/></textElement><text><![CDATA[Total (R$)]]></text></staticText>
+            <staticText><reportElement x="0" y="0" width="50" height="20" uuid="c7e24b0c-7b0f-4884-95e3-4b68e98715ec"/><textElement><font isBold="true"/></textElement><text><![CDATA[ID]]></text></staticText>
+            <staticText><reportElement x="50" y="0" width="200" height="20" uuid="d500742f-fbaf-4c3e-8c65-b1b8b8d00922"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fornecedor]]></text></staticText>
+            <staticText><reportElement x="250" y="0" width="150" height="20" uuid="e5264b38-2a1e-450a-9d93-39d22ff06757"/><textElement><font isBold="true"/></textElement><text><![CDATA[Data da Compra]]></text></staticText>
+            <staticText><reportElement x="400" y="0" width="100" height="20" uuid="f63b4f62-b1c4-4b95-a45e-4a6cf8dc7f6b"/><textElement><font isBold="true"/></textElement><text><![CDATA[Total (R$)]]></text></staticText>
         </band>
     </columnHeader>
     <detail>
         <band height="20">
-            <textField><reportElement x="0" y="0" width="50" height="20" uuid="b1"/><textFieldExpression><![CDATA[$F{id}]]></textFieldExpression></textField>
-            <textField><reportElement x="50" y="0" width="200" height="20" uuid="b2"/><textFieldExpression><![CDATA[$F{fornecedor_nome}]]></textFieldExpression></textField>
-            <textField pattern="dd/MM/yyyy HH:mm"><reportElement x="250" y="0" width="150" height="20" uuid="b3"/><textFieldExpression><![CDATA[$F{data_compra}]]></textFieldExpression></textField>
-            <textField pattern="#,##0.00"><reportElement x="400" y="0" width="100" height="20" uuid="b4"/><textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression></textField>
+            <textField><reportElement x="0" y="0" width="50" height="20" uuid="0a7f5a9b-8c6d-4b47-8a6c-48c9d0b6d21c"/><textFieldExpression><![CDATA[$F{id}]]></textFieldExpression></textField>
+            <textField><reportElement x="50" y="0" width="200" height="20" uuid="1b8c6a0c-9d7e-4c58-9b7d-59d0e1c7e32d"/><textFieldExpression><![CDATA[$F{fornecedor_nome}]]></textFieldExpression></textField>
+            <textField pattern="dd/MM/yyyy HH:mm"><reportElement x="250" y="0" width="150" height="20" uuid="2c9d7b1d-0e8f-4d69-ac8e-6ae1f2d8f43e"/><textFieldExpression><![CDATA[$F{data_compra}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="400" y="0" width="100" height="20" uuid="3dae8c2e-1f90-4e7a-bd9f-7bf203e9054f"/><textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression></textField>
         </band>
     </detail>
 </jasperReport>
