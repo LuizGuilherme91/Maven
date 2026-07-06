@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioCompras" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12345678-1234-1234-1234-123456789012">
+    <queryString><![CDATA[SELECT c.id, c.data_compra, c.valor_total, f.nome_fantasia as fornecedor_nome FROM compra c INNER JOIN fornecedor f ON c.fornecedor_id = f.id]]></queryString>
+    <field name="id" class="java.lang.Integer"/>
+    <field name="data_compra" class="java.sql.Timestamp"/>
+    <field name="valor_total" class="java.lang.Double"/>
+    <field name="fornecedor_nome" class="java.lang.String"/>
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30" uuid="87654321-4321-4321-4321-210987654321"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="18" isBold="true"/></textElement>
+                <text><![CDATA[Relatório de Compras - SisCom]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="20">
+            <staticText><reportElement x="0" y="0" width="50" height="20" uuid="a1"/><textElement><font isBold="true"/></textElement><text><![CDATA[ID]]></text></staticText>
+            <staticText><reportElement x="50" y="0" width="200" height="20" uuid="a2"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fornecedor]]></text></staticText>
+            <staticText><reportElement x="250" y="0" width="150" height="20" uuid="a3"/><textElement><font isBold="true"/></textElement><text><![CDATA[Data da Compra]]></text></staticText>
+            <staticText><reportElement x="400" y="0" width="100" height="20" uuid="a4"/><textElement><font isBold="true"/></textElement><text><![CDATA[Total (R$)]]></text></staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20">
+            <textField><reportElement x="0" y="0" width="50" height="20" uuid="b1"/><textFieldExpression><![CDATA[$F{id}]]></textFieldExpression></textField>
+            <textField><reportElement x="50" y="0" width="200" height="20" uuid="b2"/><textFieldExpression><![CDATA[$F{fornecedor_nome}]]></textFieldExpression></textField>
+            <textField pattern="dd/MM/yyyy HH:mm"><reportElement x="250" y="0" width="150" height="20" uuid="b3"/><textFieldExpression><![CDATA[$F{data_compra}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="400" y="0" width="100" height="20" uuid="b4"/><textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+</jasperReport>

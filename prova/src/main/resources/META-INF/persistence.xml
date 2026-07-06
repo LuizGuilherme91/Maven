@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+            xmlns="https://jakarta.ee/xml/ns/persistence"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <!-- O nome aqui (SisComPU) deve ser exatamente o mesmo configurado no seu JPAUtil -->
+    <persistence-unit name="SisComPU" transaction-type="RESOURCE_LOCAL">
+        
+        <!-- Provedor do Hibernate -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <!-- 1. Configurações de Conexão com o SQLite -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+            
+            <!-- Define o nome do arquivo que será criado: siscom.db -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:siscom.db"/>
+
+            <!-- 2. Configurações do Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- 3. Geração Automática do Banco (Isso cria as tabelas sozinho) -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>

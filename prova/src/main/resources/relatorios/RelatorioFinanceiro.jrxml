@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFinanceiro" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="88888888-4444-4444-4444-123456789012">
+    <queryString><![CDATA[SELECT p.id, p.data_vencimento, p.valor_original, p.status, f.pagar_ou_receber FROM financeiro_parcela p INNER JOIN financeiro f ON p.financeiro_id = f.id]]></queryString>
+    <field name="id" class="java.lang.Integer"/>
+    <field name="data_vencimento" class="java.sql.Timestamp"/>
+    <field name="valor_original" class="java.lang.Double"/>
+    <field name="status" class="java.lang.Integer"/>
+    <field name="pagar_ou_receber" class="java.lang.Integer"/>
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30" uuid="99999999-5555-5555-5555-210987654321"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="18" isBold="true"/></textElement>
+                <text><![CDATA[Relatório Financeiro - Contas a Pagar e Receber]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="20">
+            <staticText><reportElement x="0" y="0" width="80" height="20" uuid="c1"/><textElement><font isBold="true"/></textElement><text><![CDATA[ID Parcela]]></text></staticText>
+            <staticText><reportElement x="80" y="0" width="150" height="20" uuid="c2"/><textElement><font isBold="true"/></textElement><text><![CDATA[Tipo da Conta]]></text></staticText>
+            <staticText><reportElement x="230" y="0" width="120" height="20" uuid="c3"/><textElement><font isBold="true"/></textElement><text><![CDATA[Vencimento]]></text></staticText>
+            <staticText><reportElement x="350" y="0" width="100" height="20" uuid="c4"/><textElement><font isBold="true"/></textElement><text><![CDATA[Valor (R$)]]></text></staticText>
+            <staticText><reportElement x="450" y="0" width="100" height="20" uuid="c5"/><textElement><font isBold="true"/></textElement><text><![CDATA[Status]]></text></staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20">
+            <textField><reportElement x="0" y="0" width="80" height="20" uuid="d1"/><textFieldExpression><![CDATA[$F{id}]]></textFieldExpression></textField>
+            <textField><reportElement x="80" y="0" width="150" height="20" uuid="d2"/><textFieldExpression><![CDATA[$F{pagar_ou_receber} == 0 ? "A Pagar" : "A Receber"]]></textFieldExpression></textField>
+            <textField pattern="dd/MM/yyyy"><reportElement x="230" y="0" width="120" height="20" uuid="d3"/><textFieldExpression><![CDATA[$F{data_vencimento}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="350" y="0" width="100" height="20" uuid="d4"/><textFieldExpression><![CDATA[$F{valor_original}]]></textFieldExpression></textField>
+            <textField><reportElement x="450" y="0" width="100" height="20" uuid="d5"/><textFieldExpression><![CDATA[$F{status} == 0 ? "Pendente" : "Pago"]]></textFieldExpression></textField>
+        </band>
+    </detail>
+</jasperReport>

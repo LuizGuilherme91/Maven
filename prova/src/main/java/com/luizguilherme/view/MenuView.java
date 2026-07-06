@@ -1,5 +1,6 @@
 package com.luizguilherme.view;
 
+import com.luizguilherme.controller.RelatorioController;
 import javax.swing.*;
 
 public class MenuView extends JFrame {
@@ -22,6 +23,7 @@ public class MenuView extends JFrame {
         JMenuItem itemFormaPgto = new JMenuItem("Formas de Pagamento");
         JMenuItem itemTipoConta = new JMenuItem("Tipos de Conta");
         
+        // Ações de clique para abrir as telas de cadastro
         itemCategoria.addActionListener(e -> new CategoriaView().setVisible(true));
         itemProduto.addActionListener(e -> new ProdutoView().setVisible(true));
         itemCliente.addActionListener(e -> new ClienteView().setVisible(true));
@@ -43,6 +45,7 @@ public class MenuView extends JFrame {
         JMenuItem itemVenda = new JMenuItem("Registrar Venda");
         JMenuItem itemCompra = new JMenuItem("Registrar Compra");
         
+        // Ações para abrir as telas de compra e venda
         itemVenda.addActionListener(e -> new VendaView().setVisible(true));
         itemCompra.addActionListener(e -> new CompraView().setVisible(true));
 
@@ -53,7 +56,7 @@ public class MenuView extends JFrame {
         JMenu menuFinanceiro = new JMenu("Financeiro");
         JMenuItem itemContas = new JMenuItem("Baixa de Contas a Pagar/Receber");
         
-        // AÇÃO DO FINANCEIRO LIGADA
+        // Ação para abrir a tela de baixar parcelas
         itemContas.addActionListener(e -> new FinanceiroView().setVisible(true));
         
         menuFinanceiro.add(itemContas);
@@ -64,10 +67,16 @@ public class MenuView extends JFrame {
         JMenuItem relCompras = new JMenuItem("Compras por Período/Fornecedor");
         JMenuItem relFinanceiro = new JMenuItem("Contas (Pagar/Receber)");
         
+        // Ações chamando os métodos de geração de PDF do JasperReports
+        relVendas.addActionListener(e -> new RelatorioController().emitirRelatorioVendas());
+        relCompras.addActionListener(e -> new RelatorioController().emitirRelatorioCompras());
+        relFinanceiro.addActionListener(e -> new RelatorioController().emitirRelatorioFinanceiro());
+        
         menuRelatorios.add(relVendas);
         menuRelatorios.add(relCompras);
         menuRelatorios.add(relFinanceiro);
 
+        // Adicionando os menus na barra principal
         menuBar.add(menuCadastros);
         menuBar.add(menuMovimentacoes);
         menuBar.add(menuFinanceiro);
