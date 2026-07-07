@@ -25,7 +25,6 @@ public class Fornecedor {
     public Fornecedor() {
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getNome_fantasia() { return nome_fantasia; }

@@ -21,7 +21,6 @@ public class Compra {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
-    // M:N com Produto - Cria a tabela intermediária de compra
     @ManyToMany
     @JoinTable(
         name = "compra_produto",
@@ -30,14 +29,12 @@ public class Compra {
     )
     private List<Produto> produtos;
 
-    // 1:1 com Financeiro
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "financeiro_id")
     private Financeiro financeiro;
 
     public Compra() {
     }
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public Date getData_compra() { return data_compra; }

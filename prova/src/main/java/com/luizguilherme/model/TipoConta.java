@@ -11,12 +11,11 @@ public class TipoConta {
     private int id;
 
     @Column(nullable = false)
-    private String descricao; // Alterado para String por coerência
+    private String descricao; 
 
     public TipoConta() {
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getDescricao() { return descricao; }

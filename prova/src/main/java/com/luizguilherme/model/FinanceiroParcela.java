@@ -32,7 +32,6 @@ public class FinanceiroParcela {
     public FinanceiroParcela() {
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public int getN_parcela() { return n_parcela; }

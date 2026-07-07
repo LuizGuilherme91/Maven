@@ -21,7 +21,6 @@ public class Venda {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    // M:N com Produto - Cria a tabela intermediária de venda
     @ManyToMany
     @JoinTable(
         name = "venda_produto",
@@ -30,7 +29,6 @@ public class Venda {
     )
     private List<Produto> produtos;
 
-    // 1:1 com Financeiro
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "financeiro_id")
     private Financeiro financeiro;
@@ -38,7 +36,6 @@ public class Venda {
     public Venda() {
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public Date getData_venda() { return data_venda; }

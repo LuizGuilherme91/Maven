@@ -17,12 +17,10 @@ public class Produto {
     private double valor_ultima_compra;
     private double valor_ultima_venda;
 
-    // N:1 com Categoria
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    // M:N com Fornecedor (RNF008) - Cria a tabela intermediária
     @ManyToMany
     @JoinTable(
         name = "produto_fornecedor",
@@ -31,7 +29,6 @@ public class Produto {
     )
     private List<Fornecedor> fornecedores;
 
-    // M:N com Venda e Compra são mapeados nas respectivas classes
     @ManyToMany(mappedBy = "produtos")
     private List<Venda> vendas;
 
@@ -41,7 +38,6 @@ public class Produto {
     public Produto() {
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getNome() { return nome; }

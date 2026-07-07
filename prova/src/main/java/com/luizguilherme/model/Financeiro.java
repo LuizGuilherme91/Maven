@@ -25,14 +25,12 @@ public class Financeiro {
     @JoinColumn(name = "tipo_conta_id")
     private TipoConta tipoConta;
 
-    // 1:N com Parcelas - cascade = ALL para salvar as parcelas automaticamente
     @OneToMany(mappedBy = "financeiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FinanceiroParcela> parcelas;
 
     public Financeiro() {
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public Date getData_conta() { return data_conta; }
