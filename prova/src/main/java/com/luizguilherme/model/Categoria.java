@@ -18,6 +18,9 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private List<Produto> produtos;
 
+    public Categoria() {
+    }
+
     // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

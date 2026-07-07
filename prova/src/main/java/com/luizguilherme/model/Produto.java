@@ -38,6 +38,9 @@ public class Produto {
     @ManyToMany(mappedBy = "produtos")
     private List<Compra> compras;
 
+    public Produto() {
+    }
+
     // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

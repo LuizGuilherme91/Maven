@@ -29,6 +29,9 @@ public class Financeiro {
     @OneToMany(mappedBy = "financeiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FinanceiroParcela> parcelas;
 
+    public Financeiro() {
+    }
+
     // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

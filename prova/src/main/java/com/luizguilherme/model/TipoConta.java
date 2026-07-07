@@ -13,6 +13,9 @@ public class TipoConta {
     @Column(nullable = false)
     private String descricao; // Alterado para String por coerência
 
+    public TipoConta() {
+    }
+
     // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

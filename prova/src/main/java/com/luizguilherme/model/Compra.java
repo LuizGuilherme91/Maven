@@ -35,6 +35,8 @@ public class Compra {
     @JoinColumn(name = "financeiro_id")
     private Financeiro financeiro;
 
+    public Compra() {
+    }
     // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
