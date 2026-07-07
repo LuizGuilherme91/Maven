@@ -12,17 +12,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Controller responsável pelo motor de regras de negócio das Vendas.
- */
+
 public class VendaController {
 
-    // RNF-S002: Logger para registrar cada método executado
     private static final Logger logger = LogManager.getLogger(VendaController.class);
 
-    /**
-     * Registra a venda, atualiza estoques e gera o financeiro de forma atômica.
-     */
+
     public boolean registrarVenda(Venda venda, FormaPagamento formaPgto, TipoConta tipoConta) {
         logger.info("Executando método registrarVenda...");
         
@@ -33,7 +28,6 @@ public class VendaController {
         try {
             tx.begin();
 
-            // RNF-P004: Verificar limite de 3 vendas por CPF dentro do mesmo mês
             if (venda.getCliente() != null) {
                 if (!verificarLimiteVendasCpf(em, venda.getCliente().getCpf(), venda.getData_venda())) {
                     logger.warn("Venda abortada: O cliente excedeu o limite de 3 vendas mensais.");
@@ -42,8 +36,6 @@ public class VendaController {
                 }
             }
 
-            // Como a modelagem M:N não possui uma classe 'ItemVenda' definindo a quantidade
-            // e o valor unitário exato, vamos simular o valor unitário dividindo o total.
             double valorUnitarioSimulado = 0;
             if (venda.getProdutos() != null && !venda.getProdutos().isEmpty()) {
                 valorUnitarioSimulado = venda.getValor_total() / venda.getProdutos().size();
@@ -55,17 +47,14 @@ public class VendaController {
                     // Trazemos o produto atualizado do banco de dados
                     Produto produtoBD = em.find(Produto.class, p.getId());
 
-                    // RNF-P003: O sistema não pode realizar venda com estoque inferior a 1
                     if (produtoBD.getQtde_estoque() < 1) {
                         logger.warn("Venda abortada: Produto '" + produtoBD.getNome() + "' sem estoque suficiente.");
                         tx.rollback();
                         return false;
                     }
 
-                    // RNF-P001: Atualizar o estoque para menos (subtraindo 1 unidade)
                     produtoBD.setQtde_estoque(produtoBD.getQtde_estoque() - 1);
 
-                    // RNF-P005: Atualizar o campo valor_ultima_venda
                     produtoBD.setValor_ultima_venda(valorUnitarioSimulado);
 
                     // Salva a alteração do produto no banco
@@ -73,16 +62,13 @@ public class VendaController {
                 }
             }
 
-            // RNF-P009 e RF010: Ao gerar uma venda, deve-se gerar uma conta a receber
             Financeiro financeiro = new Financeiro();
             financeiro.setData_conta(venda.getData_venda());
             
-            // RNF-P010: Como é Venda, o status de pagar_ou_receber deve ser 1
             financeiro.setPagar_ou_receber(1); 
             financeiro.setFormaPagamento(formaPgto);
             financeiro.setTipoConta(tipoConta);
 
-            // RNF-P011: Status, parcelas e prazos gerenciados pela Forma de Pagamento
             List<FinanceiroParcela> parcelas = gerarParcelas(financeiro, venda.getValor_total(), formaPgto);
             financeiro.setParcelas(parcelas);
 
@@ -106,9 +92,6 @@ public class VendaController {
         }
     }
 
-    /**
-     * RNF-P004: Verifica se o CPF tem menos de 3 vendas no mês da compra atual.
-     */
     private boolean verificarLimiteVendasCpf(EntityManager em, String cpf, Date dataVenda) {
         logger.info("Executando método verificarLimiteVendasCpf...");
         
@@ -143,9 +126,7 @@ public class VendaController {
         return quantidadeVendas < 3;
     }
 
-    /**
-     * RNF-P011: Gera a lista de parcelas financeiras baseada na Forma de Pagamento.
-     */
+
     private List<FinanceiroParcela> gerarParcelas(Financeiro financeiro, double valorTotal, FormaPagamento formaPgto) {
         logger.info("Executando método gerarParcelas...");
         List<FinanceiroParcela> parcelas = new ArrayList<>();

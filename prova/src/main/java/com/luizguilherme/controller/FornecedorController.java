@@ -14,7 +14,7 @@ public class FornecedorController {
 
     public boolean salvar(Fornecedor fornecedor) {
         if (fornecedor.getCnpj() == null || fornecedor.getCnpj().isEmpty()) {
-            return false; // Validação básica: CNPJ é obrigatório
+            return false;
         }
         return fornecedorDAO.salvar(fornecedor);
     }

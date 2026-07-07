@@ -15,7 +15,6 @@ public class Fornecedor {
     private String razao_social;
     private String cnpj;
 
-    // Relação M:N mapeada no Produto
     @ManyToMany(mappedBy = "fornecedores")
     private List<Produto> produtos;
 

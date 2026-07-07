@@ -4,10 +4,6 @@ import com.luizguilherme.dao.GenericDAO;
 import com.luizguilherme.model.Produto;
 import java.util.List;
 
-/**
- * Controller responsável por intermediar as ações da tela de Produto 
- * e as operações de banco de dados (RF001).
- */
 public class ProdutoController {
 
     // Instanciamos o DAO Genérico passando a classe Produto como tipo

@@ -6,10 +6,6 @@ import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
 
-/**
- * DAO Genérico usando Hibernate/JPA.
- * O <T> representa a classe que será passada (ex: Cliente, Produto).
- */
 public class GenericDAO<T> {
 
     private Class<T> persistentClass;
@@ -24,12 +20,12 @@ public class GenericDAO<T> {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.persist(entity); // O Hibernate faz o INSERT aqui
+            em.persist(entity); 
             transaction.commit();
             return true;
         } catch (Exception e) {
             if (transaction.isActive()) {
-                transaction.rollback(); // Desfaz em caso de erro
+                transaction.rollback(); 
             }
             e.printStackTrace();
             return false;
@@ -44,7 +40,7 @@ public class GenericDAO<T> {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.merge(entity); // O Hibernate faz o UPDATE aqui
+            em.merge(entity); 
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -64,9 +60,8 @@ public class GenericDAO<T> {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            // Precisamos anexar a entidade ao contexto atual antes de remover
             entity = em.merge(entity);
-            em.remove(entity); // O Hibernate faz o DELETE aqui
+            em.remove(entity); 
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -84,7 +79,7 @@ public class GenericDAO<T> {
     public T pesquisarPorId(int id) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
-            return em.find(persistentClass, id); // O Hibernate faz o SELECT WHERE id = ?
+            return em.find(persistentClass, id); 
         } finally {
             em.close();
         }
@@ -94,7 +89,6 @@ public class GenericDAO<T> {
     public List<T> pesquisarTodos() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
-            // Cria uma query JPQL genérica para buscar todos os registros da tabela
             return em.createQuery("FROM " + persistentClass.getName(), persistentClass).getResultList();
         } finally {
             em.close();

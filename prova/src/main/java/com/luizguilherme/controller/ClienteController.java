@@ -14,7 +14,7 @@ public class ClienteController {
 
     public boolean salvar(Cliente cliente) {
         if (cliente.getCpf() == null || cliente.getCpf().isEmpty()) {
-            return false; // Validação básica: CPF é obrigatório
+            return false; 
         }
         return clienteDAO.salvar(cliente);
     }

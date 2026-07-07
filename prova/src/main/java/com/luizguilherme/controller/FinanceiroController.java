@@ -10,17 +10,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Controller responsável pela gestão e baixa das contas a pagar e receber.
- */
 public class FinanceiroController {
 
-    // RNF-S002: Logger para registrar as ações financeiras
     private static final Logger logger = LogManager.getLogger(FinanceiroController.class);
 
-    /**
-     * RF011: Realiza a baixa de uma parcela pendente (seja a pagar ou a receber).
-     */
     public boolean darBaixaParcela(int idParcela, Date dataPagamento, double desconto, double acrescimo) {
         logger.info("Executando método darBaixaParcela para a parcela ID: " + idParcela);
 
@@ -79,10 +72,6 @@ public class FinanceiroController {
         }
     }
 
-    /**
-     * Método auxiliar para buscar apenas as contas que ainda estão pendentes (Status = 0).
-     * Isso será muito útil para carregar a tabela na tela do Financeiro.
-     */
     public List<FinanceiroParcela> listarParcelasPendentes() {
         logger.info("Buscando lista de parcelas pendentes...");
         EntityManager em = JPAUtil.getEntityManager();
@@ -95,9 +84,6 @@ public class FinanceiroController {
         }
     }
     
-    /**
-     * Método auxiliar para buscar contas já pagas (Status = 1).
-     */
     public List<FinanceiroParcela> listarParcelasPagas() {
         logger.info("Buscando lista de parcelas pagas...");
         EntityManager em = JPAUtil.getEntityManager();
